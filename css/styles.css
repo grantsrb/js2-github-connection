@@ -8,8 +8,8 @@ body {
   text-align: center;
 }
 
-#user-form, #output {
+#user-form, .output-div {
   width: 40em;
   padding: 5px;
-  background-color: rgba(200, 200, 200, 0.7);
+  background-color: rgba(200, 200, 200, 0.8);
 }
