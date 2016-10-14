@@ -3,15 +3,14 @@ var apiKey = require("./../.env").apiKey;
 function ApiCall() {
 }
 
-function repoInfo(url, displayFxn, clearFxn) {
+function repoInfo(url, displayFxn, clearFxn, userName) {
   $.get(url).then(function(response) {
     clearFxn();
     for(var i = 0; i < response.length; i++) {
       var date = response[i].created_at;
-      date = date.substring(0,10);
       var projName = response[i].name;
       var description = response[i].description;
-      displayFxn(projName, description, date);
+      displayFxn(userName, projName, description, date);
     }
   }).fail(function(response) {
     console.log(JSON.stringify(response));
@@ -19,9 +18,22 @@ function repoInfo(url, displayFxn, clearFxn) {
 }
 
 ApiCall.prototype.userInfo = function(userName, displayFxn, clearFxn, invalidFxn) {
-  $.get('https://api.github.com/users/' + userName + '?access_token=' + apiKey).then(function(response) {
-    var url = response.repos_url + '?access_token=' + apiKey;
-    repoInfo(url, displayFxn, clearFxn);
+  var url = 'https://api.github.com/users/' + userName;
+  var urlKeyExists = (apiKey != null);
+  if(urlKeyExists) {
+    console.log("Added");
+    url = url + '?access_token=' + apiKey;
+  }
+  $.get(url).then(function(response) {
+    url = response.repos_url;
+    if(urlKeyExists) {
+      console.log("Added");
+      url = url + '?access_token=' + apiKey;
+    }
+    var name = response.name;
+    if (name == null)
+      name = userName;
+    repoInfo(url, displayFxn, clearFxn, name);
   }).fail(function(response) {
     invalidFxn(userName);
   });
