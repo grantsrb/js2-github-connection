@@ -1,7 +1,7 @@
 var ApiCall = require("./../js/api-call.js").apiCallModule;
 
 var displayUserInfo = function(projName, projDescription) {
-  $("#output").append("<li>" + projName + "</li><ul><li>" + projDescription + "</li></ul>");
+  $("#output").append("<li><strong>" + projName + "</strong></li><ul><li><em>" + projDescription + "</em></li></ul>");
 }
 
 $(function() {
