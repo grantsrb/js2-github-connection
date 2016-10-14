@@ -8,6 +8,13 @@ body {
   text-align: center;
 }
 
+#user-image {
+  display: none;
+  width: auto;
+  height: 10em;
+  padding-left: 30%;
+}
+
 #user-form, .output-div {
   width: 40em;
   padding: 5px;
